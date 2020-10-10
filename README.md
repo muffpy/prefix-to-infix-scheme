@@ -63,8 +63,41 @@ Basically the accumulation of the cdr of the list returns the lowest-precedence 
 And now we define the predicates and selectors we used:
 
 `operator?` : returns true if symbol is a recognisible operator
+
 `min-precedence` : returns the _"minimum"_ of two operators
+
 `'max-op` : a placeholder that always has a greater precedence than any operator
+
+Translating this to code:
+```
+ (define *precedence-dictionary*   ;; maps operator symbols to their precedences
+   '( (maxop . 10000) 
+      (minop . -10000) 
+      (+ . 0) 
+      (* . 1) )) 
+  
+ (define (operator? x) 
+   (define (loop op-map) 
+     (cond ((null? op-map) #f) 
+           ((eq? x (caar op-map)) #t) 
+           (else (loop (cdr op-map))))) 
+   (loop *precedence-dictionary*)) 
+  
+ (define (min-precedence a b) 
+   (if (< (precedence a) (precedence b))
+       a 
+       b)) 
+  
+ (define (precedence op)           ;; loops over precedence-dictionary to return precedence value of operator being queried
+   (define (loop op-map) 
+     (cond ((null? op-map) 
+            (error "Operator not defined -- Precedence:" op)) 
+           ((eq? op (caar op-map)) 
+            (cdar op-map)) 
+           (else 
+            (loop (cdr op-map))))) 
+   (loop *precedence-dictionary*)) 
+```
 
 
 
