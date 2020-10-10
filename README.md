@@ -58,7 +58,7 @@ Where last-op searches an expression for the lowest-precedence operator, which c
                'maxop 
                expr)) 
 ```
-Basically the accumulation of the cdr of the list returns the lowest-precedence operator in the last n-1 terms. We compare this with the first element to get the result. This is obviously done recursively. 
+Basically the accumulation of the cdr of the list returns the lowest-precedence operator in the last n-1 terms. We compare this with the first element to get the result. This is obviously done **recursively**. 
 
 And now we define the predicates and selectors we used:
 - `operator?` : returns true if symbol is a recognisible operator
