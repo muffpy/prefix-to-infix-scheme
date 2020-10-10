@@ -32,6 +32,45 @@ Recall the `deriv` procedure and the constructors `make-sum` and `make-product`:
         ((and (number? m1) (number? m2)) (* m1 m2)) 
         (else (list '* m1 m2))))       
 ```
+---------------------------------------------------------------------------
+
+The two primary observations to approach this problem:
+* Recognising that the given expression is a _sum_ or a _product_,i.e, the last one applied to the terms if the expression is evaluated.
+* The parantheses are **ambiguous** in the expression. On one hand, they enclose mathematical sub-expressions and OOTH, they are sub-lists in the list structure and hence, can be recursed upon.
                   
-                  
+## sum? or product?
+To tell what sort of expression we have, we find the last operator applied to the terms. This has to be the operator with the **lowest precedence** among all the visible ones. The predicates `sum?` and `product?` will search out the lowest-precedence operator - 
+```
+ (define (sum? expr) 
+   (eq? '+ (last-op expr))) 
+  
+ (define (product? expr) 
+   (eq? '* (last-op expr))) 
+```
+
+Where last-op searches an expression for the lowest-precedence operator, which can be done as an **accumulation** (zip in Haskell):
+```
+ (define (last-op expr) 
+   (accumulate (lambda (a b) 
+                 (if (operator? b) 
+                     (min-precedence a b) 
+                     a)) 
+               'maxop 
+               expr)) 
+```
+Basically the accumulation of the cdr of the list returns the lowest-precedence operator in the last n-1 terms. We compare this with the first element to get the result. This is obviously done recursively. 
+
+And now we define the predicates and selectors we used:
+
+`operator?` : returns true if symbol is a recognisible operator
+`min-precedence` : returns the _"minimum"_ of two operators
+`'max-op` : a placeholder that always has a greater precedence than any operator
+
+
+
+
+
+
+
+
 
