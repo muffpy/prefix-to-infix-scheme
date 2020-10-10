@@ -90,7 +90,7 @@ Translating this to code:
  (define (precedence op)           ;; loops over precedence-dictionary to return precedence value of operator being queried
    (define (loop op-map) 
      (cond ((null? op-map) 
-            (error "Operator not defined -- Precedence:" op)) 
+            10000) ;; if not an operator, return max operator value so that min-precedence returns other operator
            ((eq? op (caar op-map)) 
             (cdar op-map)) 
            (else 
