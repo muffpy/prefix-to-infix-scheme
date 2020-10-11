@@ -97,7 +97,17 @@ We define `make-sum` and `make-product` using these tools. (/PrefixToInfix.scm)[
 
 ## Testing
 
+```
+]=> (deriv '(x + 3 * (x + y + 2)) 'x)
+4
 
+]=> (deriv '(x + 3) 'x)
+1
+
+]=> (deriv '(x * y * (x + 3)) 'x)
+((x * y) + (y * (x + 3)))
+
+```
 
 
 
