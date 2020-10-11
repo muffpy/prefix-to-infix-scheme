@@ -107,7 +107,10 @@ Given the smallest-precedence operator, we can find the preceding and succeeding
              ((eq? sym (Car list)) list)
              (else (qmem sym (cdr list)))))
 ```
-We define `make-sum` and `make-product` using these tools
+We define `make-sum` and `make-product` using these tools. (/PrefixToInfix.scm)[PrefixToInfix.scm] contains these procedures along with their prediactes.
+
+## Testing
+
 
 
 
