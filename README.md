@@ -98,7 +98,16 @@ Translating this to code:
    (loop *precedence-dictionary*)) 
 ```
 
-
+## Constructors and selectors
+So now that **sums** and **products** can be identified in this language, we look at ways of _extracting_ their parts or _making_ new ones. 
+Given the smallest-precedence operator, we can find the preceding and succeeding lists using `memq` and its (made up) opposite `qmem`:
+```
+(define (qmem sym list)
+       (cond ((null? list) '())
+             ((eq? sym (Car list)) list)
+             (else (qmem sym (cdr list)))))
+```
+We define `make-sum` and `make-product` using these tools
 
 
 
