@@ -90,7 +90,7 @@ Given the smallest-precedence operator, we can find the preceding and succeeding
 ```
 (define (qmem sym list)
        (cond ((null? list) '())
-             ((eq? sym (Car list)) list)
+             ((eq? sym (car list)) list)
              (else (qmem sym (cdr list)))))
 ```
 We define `make-sum` and `make-product` using these tools. [PrefixToInfix.scm](PrefixToInfix.scm) contains these procedures along with their prediactes.
